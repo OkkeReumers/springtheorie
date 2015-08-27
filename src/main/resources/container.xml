@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns='http://www.springframework.org/schema/beans'
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:schemaLocation='http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd'>
+	<bean id='classA' class='be.vdab.ClassA'> <!-- 1 -->
+		<property name='telefoonNrHelpDask' value='01/234.567.8' /> <!-- 2 -->
+		<property name='koersenURL'
+			value='http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml' />
+		<property name='defaultTaalEnLand' value='nl_BE' />
+		<property name='importData' value='c/data/postcodes.txt' />
+		<property name='defaultBladRichting' value='LIGGEND' />
+		<property name='webMasterEMailAdres' value='SpringIntVeld@vdab.be' />
+		<property name='websiteGestart' value='2008-07-31' />
+	</bean>
+	<bean id='classB' class='be.vdab.ClassB'>
+		<constructor-arg value='01/234.567.8' /> <!-- 3 -->
+		<constructor-arg value='3' />
+	</bean>
+	<bean id='helpdeskMedewerkers' class='be.vdab.HelpdeskMedewerkers'>
+		<constructor-arg>
+			<props> <!-- 4 -->
+				<prop key='Joe'>123</prop> <!-- 5 -->
+				<prop key='Jack'>456</prop>
+				<prop key='William'>789</prop>
+				<prop key='Averell'>012</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+	<bean id='conversionService'
+		class='org.springframework.context.support.ConversionServiceFactoryBean'>
+		<property name='converters'>
+			<list>
+				<bean class='be.vdab.converters.StringToDateConverter' />
+			</list>
+		</property>
+	</bean>
+	<bean id='teller1' class='be.vdab.Teller' />  <!-- 6 -->
+	<bean id='teller2' class='be.vdab.Teller' scope='prototype' />  <!-- 7 -->
+	<bean id='yahooKoersenClient' class='be.vdab.restclient.YahooKoersenClient'>
+		<constructor-arg
+			value='http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&amp;f=l1' />
+	</bean>
+	<bean id='ecbKoersenClient' class='be.vdab.restclient.ECBKoersenClient'>
+		<constructor-arg
+			value='http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml' />
+	</bean>
+	<bean id='euroService' class='be.vdab.services.EuroService'>
+		<constructor-arg ref='yahooKoersenClient' /> <!-- 8 -->
+	</bean>
+</beans>
+
+<!--1. Je definieert een bean. Je geeft elke bean een unieke id (identificator). 
+	De naamgeving conventie van een id is zoals die van een Java variabele. Je 
+	vermeldt bij class de class (inclusief zijn package) waarvan Spring een bean 
+	maakt. -->
+
+<!-- 2. name bevat de naam van de te injecteren property - spring vervangt 
+	de eerste letter door een hoofdletter: TelefoonNrHelpDesk - en voegt hiervoor 
+	set toe: setTelefoonNrHelpDesk - en roept deze method (setTelefoonNrHelpDesk) 
+	op. value bevat de te injecteren waarde. spring geeft deze mee bij de setter 
+	oproep -->
+
+<!-- 3. Je gebruikt per constructor parameter een element constructor-arg. 
+	Je tikt bij value de te injecteren waarde. Spring injecteert de constructor 
+	parameters in dezelfde volgorde waarin jij de constructor-arg elementen schrijft -->
+
+<!-- 4. Je duidt de properties aan met een element props -->
+<!-- 5. Je gebruikt een element prop per entry. Je tikt tussen <prop> en 
+	</prop> de entry waarde -->
+
+<!-- 6. Deze bean heeft de default scope: singleton -->
+<!-- 7. Je geeft deze bean de scope prototype -->
+
+<!-- 8. je injecteert met constructor-arg de constructor met de bean yahooKoersenClient. 
+		ref bevat het id van de te injecteren bean -->
