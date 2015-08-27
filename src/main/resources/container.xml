@@ -3,8 +3,10 @@
 	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 	xsi:schemaLocation='http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd'>
-	<bean id='classA' class='be.vdab.ClassA'> <!-- 1 -->
-		<property name='telefoonNrHelpDask' value='01/234.567.8' /> <!-- 2 -->
+	<import resource='restclient.xml' />
+	<import resource='services.xml' />
+	<!-- <bean id='classA' class='be.vdab.ClassA'> 1
+		<property name='telefoonNrHelpDask' value='01/234.567.8' /> 2
 		<property name='koersenURL'
 			value='http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml' />
 		<property name='defaultTaalEnLand' value='nl_BE' />
@@ -14,13 +16,13 @@
 		<property name='websiteGestart' value='2008-07-31' />
 	</bean>
 	<bean id='classB' class='be.vdab.ClassB'>
-		<constructor-arg value='01/234.567.8' /> <!-- 3 -->
+		<constructor-arg value='01/234.567.8' /> 3
 		<constructor-arg value='3' />
 	</bean>
 	<bean id='helpdeskMedewerkers' class='be.vdab.HelpdeskMedewerkers'>
 		<constructor-arg>
-			<props> <!-- 4 -->
-				<prop key='Joe'>123</prop> <!-- 5 -->
+			<props> 4
+				<prop key='Joe'>123</prop> 5
 				<prop key='Jack'>456</prop>
 				<prop key='William'>789</prop>
 				<prop key='Averell'>012</prop>
@@ -35,8 +37,8 @@
 			</list>
 		</property>
 	</bean>
-	<bean id='teller1' class='be.vdab.Teller' />  <!-- 6 -->
-	<bean id='teller2' class='be.vdab.Teller' scope='prototype' />  <!-- 7 -->
+	<bean id='teller1' class='be.vdab.Teller' />  6
+	<bean id='teller2' class='be.vdab.Teller' scope='prototype' />  7
 	<bean id='yahooKoersenClient' class='be.vdab.restclient.YahooKoersenClient'>
 		<constructor-arg
 			value='http://download.finance.yahoo.com/d/quotes.csv?s=EURUSD=X&amp;f=l1' />
@@ -46,8 +48,8 @@
 			value='http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml' />
 	</bean>
 	<bean id='euroService' class='be.vdab.services.EuroService'>
-		<constructor-arg ref='yahooKoersenClient' /> <!-- 8 -->
-	</bean>
+		<constructor-arg ref='yahooKoersenClient' /> 8
+	</bean> -->
 </beans>
 
 <!--1. Je definieert een bean. Je geeft elke bean een unieke id (identificator). 
@@ -73,4 +75,4 @@
 <!-- 7. Je geeft deze bean de scope prototype -->
 
 <!-- 8. je injecteert met constructor-arg de constructor met de bean yahooKoersenClient. 
-		ref bevat het id van de te injecteren bean -->
+	ref bevat het id van de te injecteren bean -->
