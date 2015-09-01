@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Scanner;
 
-public class YahooKoersenClient implements KoersenClient {
+/*@Qualifier("Yahoo")*/
+/*@Component*/
+class YahooKoersenClient implements KoersenClient {
 	private final URL url;
 
-	public YahooKoersenClient(URL url) { /* 1 */
+	/*@Autowired*/
+	public YahooKoersenClient(/*@Value("${yahooKoersenURL}")*/ URL url) { /* 1 */
 		this.url = url;
 	}
 
