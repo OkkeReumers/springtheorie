@@ -1,15 +1,13 @@
 package be.vdab;
 
-import java.math.BigDecimal;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import be.vdab.services.EuroService;
+import be.vdab.gaming.Spelletje;
 
 public class Main {
 	public static void main(String[] args) {
 		try (ClassPathXmlApplicationContext context =
-				new ClassPathXmlApplicationContext("restclient.xml", "services.xml")) { /* 1 */
+				new ClassPathXmlApplicationContext("restclient.xml", "services.xml","container.xml")) { /* 1 */
 //			ClassA objectA = context.getBean(ClassA.class);
 //			System.out.println(objectA.getKoersenURL());
 //			System.out.println(objectA.getDefaultTaalEnLand().getDisplayName());
@@ -28,8 +26,9 @@ public class Main {
 //			Teller teller2 = context.getBean("teller2", Teller.class); /* 4 */
 //			teller2.verhoog(); /* 5 */
 //			context.getBean("teller2", Teller.class).verhoog(); /* 6 */
-			System.out.println(context.getBean(EuroService.class).naarDollar(
-					BigDecimal.valueOf(2)));
+			/*System.out.println(context.getBean(EuroService.class).naarDollar(
+					BigDecimal.valueOf(2)));*/
+			System.out.println(context.getBean(Spelletje.class).getAantalVijanden());
 
 		}
 	}
